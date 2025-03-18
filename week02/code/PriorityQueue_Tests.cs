@@ -11,7 +11,15 @@ public class PriorityQueueTests
     // Defect(s) Found: 
     public void TestPriorityQueue_1()
     {
-        var priorityQueue = new PriorityQueue();
+        var priorityQueue = new PriorityQueue();        
+        priorityQueue.Enqueue("Mark", 10);
+        priorityQueue.Enqueue("Sally", 5);
+        priorityQueue.Enqueue("James", 1);
+        PriorityItem [] expectedResult = new PriorityItem[]{
+            new PriorityItem("Mark", 10),
+            new PriorityItem("Sally", 5),
+            new PriorityItem("James", 1)
+        };
         Assert.Fail("Implement the test case and then remove this.");
     }
 
