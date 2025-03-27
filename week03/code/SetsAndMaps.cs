@@ -1,4 +1,6 @@
+using System.Runtime.CompilerServices;
 using System.Text.Json;
+using NuGet.Frameworks;
 
 public static class SetsAndMaps
 {
@@ -22,7 +24,18 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var stringSet = new HashSet<string>();
+        List<string> stringArray = new();
+        foreach(var word in words) {
+            char[] charArray = word.ToCharArray();
+            Array.Reverse(charArray);
+            string reversed = new string(charArray);
+            if(stringSet.Contains(reversed)) {
+                stringArray.Add($"{word} & {reversed}");
+            }
+            stringSet.Add(word);
+        }
+        return stringArray.ToArray();
     }
 
     /// <summary>
@@ -43,6 +56,12 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            var degree = fields[3];
+            if (degrees.ContainsKey(degree)) {
+                degrees[degree]++;
+            } else {
+                degrees[degree] = 1;
+            }
         }
 
         return degrees;
@@ -67,7 +86,21 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        var dict1 = new Dictionary<char, int>();
+        var dict2 = new Dictionary<char, int>();
+        word1 = word1.Replace(" ", "").ToLower();
+        word2 = word2.Replace(" ", "").ToLower();
+        foreach(char letter in word1) {
+            if(!dict1.TryAdd(letter, 1))
+            dict1[letter]++;
+        };
+        foreach(char letter in word2) {
+            if(!dict2.TryAdd(letter, 1))
+            dict2[letter]++;
+        };
+        bool areDictionariesEqual = dict1.Count == dict2.Count && dict1.All(kvp => dict2.TryGetValue(kvp.Key, out int value) && kvp.Value == value);
+
+        return areDictionariesEqual;
     }
 
     /// <summary>

@@ -39,8 +39,6 @@ public class Translator
         string toWord = "???";
         if(_words.ContainsKey(fromWord)) {
             toWord = _words[fromWord];
-        } else {
-            toWord = "???";
         }
         return toWord;
     }
